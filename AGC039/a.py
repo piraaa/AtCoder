@@ -1,39 +1,26 @@
 S = list(input())
 K = int(input())
 
-count=0
+tmp = S[0]
+count = 1
+S_num = list()
+for i in range(1,len(S)):
+	if S[i] == tmp:
+		count += 1
+	else:
+		S_num.append(count)
+		tmp = S[i]
+		count = 1
+S_num.append(count)
 
-isOdd = False
-if K%2 != 0: isOdd = True
-
-if K==1:
-	for i in range(len(S)-1):
-		if S[i] == S[i+1]:
-			S[i+1] = '?'
-			count += 1
-
+if len(S_num) == 1:
+	print(len(S)*K//2)
 else:
-	S2 = S+S
-
-	for i in range(len(S2)-1):
-		if S2[i] == S2[i+1]:
-			S2[i+1] = '?'
-			count += 1
-	
-	if isOdd:
-		K -= 1
-	
-	count *= K//2
-
-	if S2[0] == S2[-1]:
-		count += (K/2)-1
-
-	if isOdd:
-		S.insert(0, S2[-1])
-
-		for i in range(len(S)-1):
-			if S[i] == S[i+1]:
-				S[i+1] = '?'
-				count += 1
-
-print(int(count))
+	if S[0] != S[-1]:
+		S_num = list(map(lambda x: x//2, S_num))
+		print(sum(S_num)*K)
+	else:
+		a = S_num[0]
+		b = S_num[-1]
+		S_num = list(map(lambda x: x//2, S_num))
+		print(sum(S_num)*K - (a//2 + b//2 - (a+b)//2)*(K-1))
