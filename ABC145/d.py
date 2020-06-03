@@ -27,17 +27,19 @@ def combination(n,r):
 	
 	ans = 1
 	for i in range(r):
-		if numerator[i] > 1: ans *= numerator[i]
-
-	return ans
+		if numerator[i] > 1:
+			ans *= numerator[i]
+			if ans >= 1e9+7: ans %= 1e9+7
+	
+	return int(ans)
 
 X,Y = map(int, input().split())
 
 if (X+Y)%3 != 0:
 	ans = 0
 else:
-	n = (2*Y-X)/3
-	m = Y-2*n
+	n = int((2*Y-X)/3)
+	m = int(Y-2*n)
 	if n<0 or m<0:
 		ans = 0
 	else:
